@@ -10,8 +10,8 @@ from src.paths import REPORTS_DIR
 
 def evaluate(y_true, y_pred, model_name="ridge"):
     """
-    Gerçek ve tahmin değerlerine göre R² ve RMSE metriklerini hesaplar.
-    Sonucu reports/metrics.json dosyasına kaydeder.
+    Gerçek ve tahmin değerlerine göre R² ve RMSE metriklerini hesaplayacak.
+    Sonucu reports/metrics.json dosyasına kaydecek.
     """
     r2 = r2_score(y_true, y_pred)
     rmse = sqrt(mean_squared_error(y_true, y_pred))
@@ -29,18 +29,18 @@ def evaluate(y_true, y_pred, model_name="ridge"):
     print(f"📊 Metrikler kaydedildi: {report_path}")
     print(json.dumps(metrics, indent=4))
 
-if __name__ == "__main__":  # test modu
+if __name__ == "__main__":  
     import joblib
     import pandas as pd
     from src.data import load_data
     from src.features import feature_engineer
 
-    # --- model ve veri yükleme ---
+    #  model  yükle
     model_path = REPORTS_DIR.parent / "models" / "houseprice.joblib"
     model = joblib.load(model_path)
     df = feature_engineer(load_data("train.csv"))
 
-    # --- tahmin ve değerlendirme ---
+    #  değerlendirme
     X = df.drop(columns=["SalePrice"])
     y = df["SalePrice"]
     y_pred = model.predict(X)

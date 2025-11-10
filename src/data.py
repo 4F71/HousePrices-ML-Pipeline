@@ -28,9 +28,9 @@ def load_train_test() -> tuple[pd.DataFrame,pd.DataFrame]:
 
 def optimize_dtypes(df:pd.DataFrame) ->pd.DataFrame: #bellek optimizasyonu
     for col in df.select_dtypes(include="float64"): 
-        df[col] = df[col].astype("float32")
+        df[col] = df[col].astype("float32") #eğitimi hızlandırmak, ram kullanımı azaltmak için optimizasyon
     for col in df.select_dtypes(include="int64"):
-        df[col] = df[col].astype("int32")
+        df[col] = df[col].astype("int32") #eğitimi hızlandırmak, ram kullanımı azaltmak için optimizasyon
 
 
 if __name__ == "__main__":
