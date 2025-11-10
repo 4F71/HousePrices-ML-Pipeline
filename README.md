@@ -48,19 +48,25 @@ python -m scripts.train_eval --model ridge
 
 ---
 
-## 📊 Model Performansı
-
-| Metrik | Skor |
-|--------|------|
-| **R²** | **0.9394** |
-| **RMSE** | **0.0984** |
+| Metrik | Skor | Açıklama |
+|--------|-------|-----------|
+| **R² (Local)** | **0.9394** | Model, fiyatlardaki varyansın %93.9’unu açıklıyor |
+| **RMSE (Local)** | **0.0984** | Log-dönüşümlü hatada %9.8 ortalama sapma |
+| **RMSLE (Kaggle)** | **0.13049** | Gerçek fiyat ölçeğinde Kaggle doğrulama skoru |
 
 **Yorum:**  
-Model, ev fiyatlarındaki varyansın **%93.94'ünü açıklamakta** ve log dönüşümü sonrası ortalama **~%10 hata** ile tahmin yapmaktadır.
+Model, veri setindeki varyansın büyük kısmını açıklamakta ve log dönüşümü sonrası düşük hata oranı elde etmektedir.  
+Kaggle ortamında doğrulanan **0.13049 RMSLE** değeri, bu pipeline’ın **Level-1 baseline** seviyesinde güçlü bir genel performans sunduğunu gösterir.
 
 <p align="center">
   <img src="figures/importance.png" alt="Feature Importance" width="700"/>
 </p>
+
+---
+
+### 📈 Kaggle Baseline Result
+This pipeline achieved **0.13049 RMSLE** on  
+[Kaggle – House Prices: Advanced Regression Techniques](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques)
 
 ---
 
@@ -270,6 +276,8 @@ Bu yazılımın ve ilgili dokümantasyon dosyalarının ("Yazılım") bir kopyas
 
 ---
 
+
+
 ## 👨‍💻 Yazar
 
 **Onur Tilki** 
@@ -285,6 +293,12 @@ Bu yazılımın ve ilgili dokümantasyon dosyalarının ("Yazılım") bir kopyas
 - İlham Kaynağı: Üretim seviyesi ML sistemleri ve yazılım mühendisliği en iyi uygulamaları
 
 ---
+
+---
+🏆 **Version:** ElasticNetCV v1.0  
+📊 **Kaggle RMSLE:** 0.13049  
+🧩 **Status:** Baseline model successfully validated on Kaggle (2025)
+
 
 <p align="center">
   <strong>⭐ Faydalı bulduysanız yıldız vermeyi düşünün!</strong>
