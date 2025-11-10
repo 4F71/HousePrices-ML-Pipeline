@@ -1,0 +1,104 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+.env
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.code-workspace
+
+# Data Files (large datasets)
+data/*.csv
+data/*.xlsx
+data/*.json
+data/*.parquet
+
+# Model Files (binary, large)
+models/*.pkl
+models/*.sav
+models/*.h5
+models/*.pt
+models/*.pth
+
+# IMPORTANT: Keep the trained model for demo
+!models/houseprice.joblib
+
+# Reports (can be regenerated)
+reports/*.json
+reports/*.html
+
+# Figures (keep importance.png for README)
+# figures/*.png
+!figures/importance.png
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# PyCharm
+.idea/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# pytest
+.pytest_cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Database
+*.db
+*.sqlite3
+*.sqlite
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~.nib
