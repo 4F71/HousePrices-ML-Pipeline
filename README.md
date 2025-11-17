@@ -247,6 +247,10 @@ Her iki dosyayı da pipeline'ı çalıştırmadan önce `data/` dizinine yerleş
 
 ---
 
+## 🔍 Extra EDA Notes
+- Minor refactor & docs update.
+
+---
 ## 🎯 Tasarım İlkeleri
 
 ✅ **Modülerlik** → Her bileşenin tek bir sorumluluğu var  
