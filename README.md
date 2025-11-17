@@ -246,7 +246,7 @@ Place both files in the `data/` directory before running the pipeline.
 
 ---
 
-## 🎯 Design Principles
+
 
 ✅ **Modularity** → Each component has a single responsibility  
 ✅ **Reproducibility** → Fixed random seeds, version-locked dependencies  
