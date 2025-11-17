@@ -4,191 +4,190 @@
   <img src="https://img.shields.io/badge/Python-3.10+-blue?style=flat-square&logo=python&logoColor=white" alt="Python"/>
   <img src="https://img.shields.io/badge/scikit--learn-1.7.2-orange?style=flat-square&logo=scikit-learn&logoColor=white" alt="scikit-learn"/>
   <img src="https://img.shields.io/badge/R²-0.9394-brightgreen?style=flat-square" alt="R² Score"/>
-  <img src="https://img.shields.io/badge/RMSE-0.0984-success?style=flat-square" alt="RMSE"/>
-  <img src="https://img.shields.io/badge/Lisans-MIT-yellow?style=flat-square" alt="License"/>
+  <img src="https://img.shields.io/badge/Kaggle-0.13049-success?style=flat-square" alt="Kaggle RMSLE"/>
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="License"/>
 </p>
 
 <p align="center">
-  <strong>Üretim seviyesinde, modüler makine öğrenimi pipeline'ı - Kaggle House Prices regresyon projesi</strong><br>
-  <em>Uçtan uca iş akışı: Veri → Feature Engineering → Ön İşleme → Model → Değerlendirme → Rapor</em>
+  <strong>Production-ready modular ML pipeline - End-to-end workflow for regression tasks</strong><br>
+  <em>Data → Feature Engineering → Preprocessing → Training → Evaluation → Reporting</em>
 </p>
 
 <p align="center">
-  <a href="#-hızlı-başlangıç">Hızlı Başlangıç</a> •
-  <a href="#-özellikler">Özellikler</a> •
-  <a href="#-pipeline-mimarisi">Mimari</a> •
-  <a href="#-model-performansı">Performans</a> •
-  <a href="#-kullanım">Kullanım</a>
+  <a href="#-quick-start">Quick Start</a> •
+  <a href="#-features">Features</a> •
+  <a href="#-architecture">Architecture</a> •
+  <a href="#-performance">Performance</a> •
+  <a href="#-usage">Usage</a>
 </p>
 
 ---
 
-## 🚀 Hızlı Başlangıç
+## 🚀 Quick Start
 
 ```bash
-# 1. Repository'yi klonla
+# 1. Clone repository
 git clone https://github.com/4F71/HousePrices-ML-Pipeline.git
 cd HousePrices-ML-Pipeline
 
-# 2. Sanal ortamı kur
+# 2. Setup environment
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
-# 3. Pipeline'ı çalıştır
+# 3. Run pipeline
 python -m scripts.train_eval --model ridge
 ```
 
-**Bu kadar!** Pipeline otomatik olarak:
-- Veriyi yükler ve feature engineering uygular
-- 5-fold cross-validation ile RidgeCV modelini eğitir
-- Modeli `models/houseprice.joblib` olarak kaydeder
-- Metrikleri `reports/metrics.json` dosyasına yazar
-- Feature importance grafiğini `figures/importance.png` olarak oluşturur
+**That's it!** The pipeline automatically:
+- Loads data and applies feature engineering
+- Trains RidgeCV model with 5-fold cross-validation
+- Saves model to `models/houseprice.joblib`
+- Writes metrics to `reports/metrics.json`
+- Generates feature importance plot at `figures/importance.png`
 
 ---
 
-| Metrik | Skor | Açıklama |
-|--------|-------|-----------|
-| **R² (Local)** | **0.9394** | Model, fiyatlardaki varyansın %93.9’unu açıklıyor |
-| **RMSE (Local)** | **0.0984** | Log-dönüşümlü hatada %9.8 ortalama sapma |
-| **RMSLE (Kaggle)** | **0.13049** | Gerçek fiyat ölçeğinde Kaggle doğrulama skoru |
+## 📊 Performance
 
-**Yorum:**  
-Model, veri setindeki varyansın büyük kısmını açıklamakta ve log dönüşümü sonrası düşük hata oranı elde etmektedir.  
-Kaggle ortamında doğrulanan **0.13049 RMSLE** değeri, bu pipeline’ın **Level-1 baseline** seviyesinde güçlü bir genel performans sunduğunu gösterir.
+| Metric | Score | Description |
+|--------|-------|-------------|
+| **R² (Local)** | **0.9394** | Model explains 93.9% of price variance |
+| **RMSE (Local)** | **0.0984** | 9.8% average deviation in log-transformed prices |
+| **Kaggle RMSLE** | **0.13049** | Validated score on Kaggle competition |
+
+**Analysis:**  
+The model achieves strong performance with minimal feature engineering. The validated Kaggle score of **0.13049 RMSLE** demonstrates robust generalization to unseen data (top 40% leaderboard).
 
 <p align="center">
   <img src="figures/importance.png" alt="Feature Importance" width="700"/>
 </p>
 
----
-
-### 📈 Kaggle Baseline Result
+### 🏆 Kaggle Validation
 This pipeline achieved **0.13049 RMSLE** on  
 [Kaggle – House Prices: Advanced Regression Techniques](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques)
 
 ---
 
-## ✨ Özellikler
+## ✨ Features
 
 ### 🧠 **Feature Engineering**
-- **`TotalSF`** → Toplam yaşam alanı (1stFlrSF + 2ndFlrSF + TotalBsmtSF)
-- **`BathCount`** → Toplam banyo sayısı (FullBath + 0.5×HalfBath)
-- **`Age`** → Ev yaşı (2020 - YearBuilt)
-- **Log dönüşümü** → `GrLivArea`, `TotalSF`, `SalePrice` sütunlarına uygulandı
-- **Outlier filtreleme** → Aşırı `GrLivArea` değerlerini kaldırır
+- **`TotalSF`** → Total living area (1stFlrSF + 2ndFlrSF + TotalBsmtSF)
+- **`BathCount`** → Total bathrooms (FullBath + 0.5×HalfBath)
+- **`Age`** → House age (2020 - YearBuilt)
+- **Log transformation** → Applied to `GrLivArea`, `TotalSF`, `SalePrice`
+- **Outlier filtering** → Removes extreme `GrLivArea` values
 
-### ⚙️ **Ön İşleme Pipeline**
-- **Sayısal özellikler:**
-  - Eksik değerler → SimpleImputer (ortalama stratejisi)
-  - Ölçekleme → StandardScaler
-- **Kategorik özellikler:**
-  - Eksik değerler → SimpleImputer (en sık görülen değer stratejisi)
-  - Kodlama → OneHotEncoder (bilinmeyen kategorileri yönetir)
+### ⚙️ **Preprocessing Pipeline**
+- **Numeric features:**
+  - Missing values → SimpleImputer (mean strategy)
+  - Scaling → StandardScaler
+- **Categorical features:**
+  - Missing values → SimpleImputer (most frequent strategy)
+  - Encoding → OneHotEncoder (handles unknown categories)
 
-### 🤖 **Model Seçimi**
-Cross-validation destekli 4 farklı regresyon modeli:
+### 🤖 **Model Selection**
+4 regression models with cross-validation support:
 
 ```bash
 python -m scripts.train_eval --model linear    # LinearRegression
-python -m scripts.train_eval --model ridge     # RidgeCV (L2, varsayılan)
+python -m scripts.train_eval --model ridge     # RidgeCV (L2, default)
 python -m scripts.train_eval --model lasso     # LassoCV (L1)
 python -m scripts.train_eval --model elastic   # ElasticNetCV (L1+L2)
 ```
 
-**Varsayılan (RidgeCV):**
-- Alpha değerleri: [0.1, 1.0, 10.0]
+**Default (RidgeCV):**
+- Alpha values: [0.1, 1.0, 10.0]
 - Cross-validation: 5-fold
-- L2 regularization ile aşırı öğrenmeyi önler
+- L2 regularization prevents overfitting
 
-### 📈 **Otomatik Raporlama**
-- **JSON metrikleri:** `reports/metrics.json`
+### 📈 **Automated Reporting**
+- **JSON metrics:** `reports/metrics.json`
 - **Feature importance:** `figures/importance.png`
-- **Model kaydı:** `models/houseprice.joblib`
+- **Model persistence:** `models/houseprice.joblib`
 
 ---
 
-## 🏗️ Pipeline Mimarisi
+## 🗂️ Architecture
 
 ```
 HousePrices/
 │
-├── data/                    # Ham veri setleri
+├── data/                    # Raw datasets
 │   ├── train.csv
 │   └── test.csv
 │
-├── models/                  # Eğitilmiş modeller
+├── models/                  # Trained models
 │   └── houseprice.joblib
 │
-├── reports/                 # Performans metrikleri
+├── reports/                 # Performance metrics
 │   └── metrics.json
 │
-├── figures/                 # Görselleştirmeler
+├── figures/                 # Visualizations
 │   └── importance.png
 │
-├── src/                     # Çekirdek modüller
-│   ├── paths.py            # Proje yolu yönetimi
-│   ├── data.py             # Veri yükleme araçları
+├── src/                     # Core modules
+│   ├── paths.py            # Project path management
+│   ├── data.py             # Data loading utilities
 │   ├── features.py         # Feature engineering
-│   ├── preprocess.py       # Ön işleme pipeline'ı
-│   ├── model.py            # Model fabrikası
-│   ├── pipeline.py         # Pipeline oluşturucu
-│   ├── train.py            # Eğitim mantığı
-│   ├── eval.py             # Değerlendirme metrikleri
-│   └── visualize.py        # Feature importance grafiği
+│   ├── preprocess.py       # Preprocessing pipeline
+│   ├── model.py            # Model factory
+│   ├── pipeline.py         # Pipeline builder
+│   ├── train.py            # Training logic
+│   ├── eval.py             # Evaluation metrics
+│   └── visualize.py        # Feature importance plots
 │
 ├── scripts/
-│   └── train_eval.py       # Uçtan uca çalıştırma scripti
+│   └── train_eval.py       # End-to-end execution script
 │
-├── requirements.txt         # Python bağımlılıkları
+├── requirements.txt         # Python dependencies
 ├── .gitignore
 └── README.md
 ```
 
 ---
 
-## 🔄 Pipeline Akışı
+## 🔄 Pipeline Flow
 
 ```mermaid
 graph LR
     A[data/train.csv] --> B[feature_engineer]
     B --> C[build_preprocessor]
-    C --> D[model eğitimi]
-    D --> E[değerlendirme]
+    C --> D[model training]
+    D --> E[evaluation]
     E --> F[reports/metrics.json]
     E --> G[figures/importance.png]
     D --> H[models/houseprice.joblib]
 ```
 
-**Adım adım:**
-1. **Veri yükleme** → `src/data.py`
+**Step-by-step:**
+1. **Data loading** → `src/data.py`
 2. **Feature engineering** → `src/features.py`
-3. **Preprocessor oluşturma** → `src/preprocess.py` (sayısal + kategorik dönüştürücüler)
-4. **Pipeline oluşturma** → `src/pipeline.py` (preprocessor + model)
-5. **Eğitim & kayıt** → `src/train.py` (80/20 bölme, random_state=42)
-6. **Değerlendirme** → `src/eval.py` (R², RMSE)
-7. **Görselleştirme** → `src/visualize.py` (en önemli 15 özellik)
+3. **Preprocessor creation** → `src/preprocess.py` (numeric + categorical transformers)
+4. **Pipeline creation** → `src/pipeline.py` (preprocessor + model)
+5. **Training & saving** → `src/train.py` (80/20 split, random_state=42)
+6. **Evaluation** → `src/eval.py` (R², RMSE)
+7. **Visualization** → `src/visualize.py` (top 15 features)
 
 ---
 
-## 📖 Kullanım
+## 📖 Usage
 
-### Temel Eğitim
+### Basic Training
 ```bash
 python -m scripts.train_eval --model ridge
 ```
 
-### Modüler Kullanım
+### Modular Usage
 ```python
-# Veri yükleme ve feature engineering
+# Data loading and feature engineering
 from src.data import load_data
 from src.features import feature_engineer
 
 df = load_data("train.csv")
 df = feature_engineer(df)
 
-# Preprocessor oluşturma
+# Preprocessor creation
 from src.preprocess import build_preprocessor
 
 numeric = df.select_dtypes(include=["int32", "int64", "float32", "float64"]).columns.tolist()
@@ -197,7 +196,7 @@ numeric.remove("SalePrice")
 
 preprocessor = build_preprocessor(numeric, categorical)
 
-# Model eğitimi
+# Model training
 from src.model import get_model
 from src.train import train_and_save
 
@@ -205,109 +204,95 @@ model = get_model("ridge")
 train_and_save(df, preprocessor, model)
 ```
 
-### Feature Importance Grafiği Oluşturma
+### Generate Feature Importance Plot
 ```bash
 python src/visualize.py
 ```
 
-### Kayıtlı Modeli Yükleme
+### Load Saved Model
 ```python
 import joblib
 
 model = joblib.load("models/houseprice.joblib")
-tahminler = model.predict(X_test)
+predictions = model.predict(X_test)
 ```
 
 ---
 
-## 🛠️ Teknoloji Yığını
+## 🛠️ Tech Stack
 
-| Kategori | Teknoloji |
+| Category | Technology |
 |----------|-----------|
-| **Dil** | Python 3.10+ |
+| **Language** | Python 3.10+ |
 | **ML Framework** | scikit-learn 1.7.2 |
-| **Veri İşleme** | pandas 2.3.3, numpy 2.2.6 |
-| **Görselleştirme** | matplotlib 3.10.7, seaborn 0.13.2 |
-| **Serileştirme** | joblib 1.5.2 |
-| **Notebook** | JupyterLab 4.4.10 (opsiyonel) |
+| **Data Processing** | pandas 2.3.3, numpy 2.2.6 |
+| **Visualization** | matplotlib 3.10.7, seaborn 0.13.2 |
+| **Serialization** | joblib 1.5.2 |
+| **Notebook** | JupyterLab 4.4.10 (optional) |
 
 ---
 
-## 📂 Veri Seti
+## 📂 Dataset
 
-Bu proje **Kaggle House Prices: Advanced Regression Techniques** veri setini kullanmaktadır.
+This project uses the **Kaggle House Prices: Advanced Regression Techniques** dataset.
 
-🔗 [Veri Setini İndir](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data)
+🔗 [Download Dataset](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data)
 
-**Yapı:**
-- `train.csv` → 1460 örnek, 81 özellik
-- `test.csv` → 1459 örnek (submission için)
+**Structure:**
+- `train.csv` → 1460 samples, 81 features
+- `test.csv` → 1459 samples (for submission)
 
-Her iki dosyayı da pipeline'ı çalıştırmadan önce `data/` dizinine yerleştirin.
-
----
-
-## 🔍 Extra EDA Notes
-- Minor refactor & docs update.
-
----
-## 🎯 Tasarım İlkeleri
-
-✅ **Modülerlik** → Her bileşenin tek bir sorumluluğu var  
-✅ **Tekrarlanabilirlik** → Sabit random seed'ler, versiyon kilitli bağımlılıklar  
-✅ **PEP 257 Uyumluluğu** → Tüm public fonksiyonlarda docstring  
-✅ **Üretime Hazır** → Temiz sorumluluk ayrımı, hardcoded path yok  
-✅ **Genişletilebilirlik** → Yeni model veya feature engineering adımları eklemek kolay
-
----
-
-## 🤝 Katkıda Bulunma
-
-Bu, ML mühendisliği en iyi uygulamalarını gösteren bir portföy projesidir. Yapabilecekleriniz:
-- Fork edip deneyebilirsiniz
-- Issue'lar aracılığıyla iyileştirme önerebilirsiniz
-- Kendi projeleriniz için şablon olarak kullanabilirsiniz
-
----
-
-## 📜 Lisans
-
-**MIT Lisansı** © 2025 Onur Tilki
-
-Bu yazılımın ve ilgili dokümantasyon dosyalarının ("Yazılım") bir kopyasını edinen herhangi bir kişiye, Yazılımı kısıtlama olmaksızın kullanma, kopyalama, değiştirme, birleştirme, yayınlama, dağıtma, alt lisans verme ve/veya satma hakları dahil olmak üzere Yazılımı kullanma izni ücretsiz olarak verilir.
-
-**YAZILIM "OLDUĞU GİBİ" SAĞLANIR, HİÇBİR GARANTİ VERİLMEZ.**
+Place both files in the `data/` directory before running the pipeline.
 
 ---
 
 
 
-## 👨‍💻 Yazar
+✅ **Modularity** → Each component has a single responsibility  
+✅ **Reproducibility** → Fixed random seeds, version-locked dependencies  
+✅ **PEP 257 Compliance** → Docstrings for all public functions  
+✅ **Production-Ready** → Clean separation of concerns, no hardcoded paths  
+✅ **Extensibility** → Easy to add new models or feature engineering steps
 
-**Onur Tilki** 
+---
+
+## 🤝 Contributing
+
+This is a portfolio project demonstrating ML engineering best practices. You can:
+- Fork and experiment
+- Suggest improvements via issues
+- Use as a template for your own projects
+
+---
+
+## 📜 License
+
+**MIT License** © 2025 Onur Tilki
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software.
+
+**THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.**
+
+---
+
+## 👨‍💻 Author
+
+**Onur Tilki**
 
 - 🌐 GitHub: [@4F71](https://github.com/4F71)
 - 📊 Kaggle: [@onurtilki](https://www.kaggle.com/onurtilki)
+- 💼 LinkedIn: [onurtilki](https://www.linkedin.com/in/onurtilki/)
 
 ---
 
-## 🙏 Teşekkürler
+## 🙏 Acknowledgments
 
-- Veri Seti: [Kaggle House Prices Competition](https://www.kaggle.com/c/house-prices-advanced-regression-techniques)
-- İlham Kaynağı: Üretim seviyesi ML sistemleri ve yazılım mühendisliği en iyi uygulamaları
-
----
+- Dataset: [Kaggle House Prices Competition](https://www.kaggle.com/c/house-prices-advanced-regression-techniques)
+- Inspiration: Production-level ML systems and software engineering best practices
 
 ---
-🏆 **Version:** ElasticNetCV v1.0  
-📊 **Kaggle RMSLE:** 0.13049  
-🧩 **Status:** Baseline model successfully validated on Kaggle (2025)
-
 
 <p align="center">
-  <strong>⭐ Faydalı bulduysanız yıldız vermeyi düşünün!</strong>
+  <strong>⭐ If you find this useful, please consider starring the repository!</strong>
 </p>
 
-<p align="center">
-  ❤️ ve scikit-learn ile yapıldı
-</p>
