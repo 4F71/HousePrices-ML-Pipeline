@@ -1,0 +1,30 @@
+# Environment
+.venv/
+env/
+__pycache__/
+
+# Data & Models
+data/
+models/
+*.joblib
+*.pkl
+*.h5
+*.pt
+*.onnx
+
+# Kaggle / Temp files
+submission*.csv
+kaggle_ready.zip
+check_scale.py
+debug/
+logs/
+*.log
+
+# IDE & System
+.vscode/
+.idea/
+.DS_Store
+
+# Jupyter & Cache
+*.ipynb_checkpoints
+*.pyc
